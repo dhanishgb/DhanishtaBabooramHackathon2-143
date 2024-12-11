@@ -1,12 +1,19 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { Pool } = require('pg'); // PostgreSQL client for Node.js
+const expressLayouts = require('express-ejs-layouts');
 const app = express();
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
+
+// Use express-ejs-layouts middleware
+app.use(expressLayouts);
+
+// Set layout as the default layout
+app.set('layout', 'layout'); // This should be your layout file (e.g., layout.ejs)
 
 // Connect to Neon DB
 const pool = new Pool({
@@ -26,6 +33,11 @@ pool.connect((err) => {
 // Routes
 const recipeRoutes = require('./routes/recipe');
 app.use('/recipes', recipeRoutes(pool)); // Pass pool to routes for database access
+
+app.get('/', (req, res) => {
+    res.redirect('/recipes'); // Redirect to the recipes route
+});
+
 
 // Start server
 const PORT = 3000;
