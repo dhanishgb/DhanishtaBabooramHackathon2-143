@@ -1,0 +1,144 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe App - Home</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Recipe Zone</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h2>Welcome to Recipe Zone</h2>
+            <p>Your one-stop platform for discovering and sharing amazing recipes from around the world.</p>
+            <div class="image-gallery">
+                <img src="https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Delicious Dish 1">
+                <img src="https://images.pexels.com/photos/262959/pexels-photo-262959.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Delicious Dish 2">
+                <img src="https://images.pexels.com/photos/699953/pexels-photo-699953.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Delicious Dish 3">
+            </div>
+            <section class="recipe-section">
+                <h3>Your Recipes</h3>
+                <ul id="recipe-list">
+                    <!-- Dynamic recipes will be displayed here -->
+                </ul>
+                <form id="recipe-form">
+                    <input type="text" id="recipe-name" placeholder="Recipe Name" required>
+                    <textarea id="recipe-description" placeholder="Recipe Description" required></textarea>
+                    <button type="submit" class="btn">Add Recipe</button>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Recipe App. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const recipeForm = document.getElementById('recipe-form');
+        const recipeList = document.getElementById('recipe-list');
+
+        recipeForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const recipeName = document.getElementById('recipe-name').value;
+            const recipeDescription = document.getElementById('recipe-description').value;
+
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <h4>${recipeName}</h4>
+                <p>${recipeDescription}</p>
+                <button onclick="deleteRecipe(this)">Delete</button>
+                <button onclick="updateRecipe(this)">Update</button>
+            `;
+
+            recipeList.appendChild(li);
+
+            recipeForm.reset();
+        });
+
+        function deleteRecipe(button) {
+            button.parentElement.remove();
+        }
+
+        function updateRecipe(button) {
+            const li = button.parentElement;
+            const name = prompt('Update Recipe Name:', li.querySelector('h4').textContent);
+            const description = prompt('Update Recipe Description:', li.querySelector('p').textContent);
+
+            if (name && description) {
+                li.querySelector('h4').textContent = name;
+                li.querySelector('p').textContent = description;
+            }
+        }
+    </script>
+</body>
+</html>
+
+<!-- about.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Recipe App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Recipe Zone</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html" class="active">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h2>About Us</h2>
+            <p>
+                Welcome to the Recipe App! We are passionate about connecting food lovers with amazing recipes from around the world. 
+                Whether you're a home cook, professional chef, or just love discovering new dishes, our platform is designed for you.
+            </p>
+            <section class="our-mission">
+                <h3>Our Mission</h3>
+                <p>
+                    Our mission is to create a vibrant community where people can share, explore, and enjoy the joy of cooking.
+                </p>
+            </section>
+            <section class="team">
+                <h3>Meet the Team</h3>
+                <p>
+                    We are a group of food enthusiasts, tech geeks, and creative designers who believe that great food should be accessible to all.
+                </p>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Recipe App. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
+
